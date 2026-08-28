@@ -1,0 +1,5 @@
+/vitamin_d_ai/venv/
+/vitamin_d_ai/__pycache__/
+/vitalcast/vendor/
+/vitalcast/.env
+.DS_Store
