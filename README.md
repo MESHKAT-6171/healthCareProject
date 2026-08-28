@@ -35,35 +35,33 @@ This project is separated into two specialized environments running concurrently
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/MESHKAT-6171/healthCareProject.git](https://github.com/MESHKAT-6171/healthCareProject.git)
+git clone https://github.com/MESHKAT-6171/healthCareProject.git
 cd healthCareProject
-
+```
 
 ### 2. Configure the Web Server (Laravel)
-
+```bash
 cd vitalcast
 copy .env.example .env
 composer install
 php artisan key:generate
 php artisan migrate
+```
 
 ### 3. Configure the AI Server (FastAPI)
-
+```bash
 cd ../vitamin_d_ai
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
+```
 
 ### 4. Boot the Microservices
-
 You can launch the entire architecture with a single click using the included batch script:
+1. Navigate to the root `healthCareProject` folder in Windows File Explorer.
+2. Double-click `start_servers.bat`.
+3. Access the platform at `[http://127.0.0.1:8000](http://127.0.0.1:8000)`.
 
-Navigate to the root healthCareProject folder in Windows File Explorer.
+## 📊 Machine Learning Model Details
+The current champion model is a Random Forest Classifier trained on behavioral and environmental data (Diet, Sun Exposure, BMI, Latitude, and basic symptom checks). By completely excluding complex medical lab data from the feature set, the model achieves **81.6% accuracy**, making it highly accessible for general user assessments.
 
-Double-click start_servers.bat.
-
-Access the platform at http://127.0.0.1:8000
-
-
-📊 Machine Learning Model Details
-The current champion model is a Random Forest Classifier trained on behavioral and environmental data (Diet, Sun Exposure, BMI, Latitude, and basic symptom checks). By completely excluding complex medical lab data from the feature set, the model achieves 81.6% accuracy, making it highly accessible for general user assessments.
