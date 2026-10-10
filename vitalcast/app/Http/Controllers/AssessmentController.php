@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Models\Assessment;
 
 class AssessmentController extends Controller
 {
@@ -33,6 +34,21 @@ class AssessmentController extends Controller
             if ($response->successful()) {
                 $result = $response->json();
 
+
+                // Save the prediction and user inputs to the SQLite database
+            Assessment::create([
+                'user_id'             => auth()->id(),
+                'age'                 => $validated['age'],
+                'bmi'                 => $validated['bmi'],
+                'diet_type'           => $validated['diet_type'],
+                'sun_exposure'        => $validated['sun_exposure'],
+                'latitude_region'     => $validated['latitude_region'],
+                'has_bone_pain'       => $validated['has_bone_pain'],
+                'has_fatigue'         => $validated['has_fatigue'],
+                'has_muscle_weakness' => $validated['has_muscle_weakness'],
+                'risk_level'          => $result['risk_prediction'],
+            ]);
+
                 return view('assessment-result', [
                     'status'     => $result['risk_prediction'],
                     'risk_score' => $result['risk_score_percentage']
@@ -47,4 +63,13 @@ class AssessmentController extends Controller
             return back()->withErrors(['ai_error' => 'Could not connect to the AI service. Ensure FastAPI is running on port 8001.']);
         }
     }
+
+    public function history()
+{
+    $assessments = Assessment::where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('assessments.history', compact('assessments'));
+}
 }

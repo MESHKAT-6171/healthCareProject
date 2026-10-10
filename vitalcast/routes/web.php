@@ -47,7 +47,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/export', [AdminController::class, 'exportCsv'])->name('admin.export');
 });
 
-
+Route::middleware(['auth'])->group(function () {
+    // ... existing routes
+    Route::get('/assessments/history', [AssessmentController::class, 'history'])->name('assessments.history');
+});
 
 Route::get('/assessment', [AssessmentController::class, 'showForm'])->name('assessment.form');
 Route::post('/assessment', [AssessmentController::class, 'submitForm'])->name('assessment.submit');
