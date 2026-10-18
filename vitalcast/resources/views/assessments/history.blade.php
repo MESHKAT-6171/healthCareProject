@@ -9,11 +9,11 @@
 <body class="bg-gray-50 min-h-screen p-6">
     <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <a href="/home" class="text-sm font-semibold text-gray-500 hover:text-indigo-600 transition-colors">
-                &larr; Back to Dashboard
-            </a>
-            <h1 class="text-2xl font-bold text-gray-800">Your Vitamin D Risk History</h1>
-        </div>
+    <a href="{{ route('assessment.form') }}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors flex items-center">
+        &larr; Back to Assessment
+    </a>
+    <h1 class="text-2xl font-bold text-gray-800">Your Vitamin D Risk History</h1>
+</div>
 
         @if($assessments->isEmpty())
             <div class="bg-white rounded-xl shadow p-8 text-center text-gray-500">
